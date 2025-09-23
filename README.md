@@ -1,59 +1,39 @@
 # Memory Game
 
-A small browser-based memory matching game implemented with TypeScript and a minimal UI. 
-
-## What it is
-
-- A simple card matching game: flip cards, find matching pairs, and track scores.
-- Built with TypeScript for the game logic and plain HTML/CSS for the UI
+A small browser-based memory matching game implemented with TypeScript and a minimal UI.
 
 ## Quick start
 
-You can run the game one of two ways:
+- Play immediately: open `index.html` in your browser (no build step required).
 
-1. Open the game directly in your browser:
+- Optional development workflow:
+  1. Install dependencies (if you plan to edit or build):
 
-	- Open `MemoryGame/index.html` in your browser (no build step required for the static bundle version).
+     npm install
 
-2. (Optional) Build from source and serve locally:
+  2. Compile TypeScript (to emit files into the project):
 
-	- Install dependencies (if present in `package.json`):
+     npx tsc
 
-```bash
-npm install
-```
+  3. Serve the folder with a static server (example):
 
-	- Compile TypeScript (if you want to build from the `src/` files):
-
-```bash
-npx tsc
-```
-
-	- Serve the `MemoryGame/` folder using a static server (example):
-
-```bash
-npx http-server MemoryGame -p 8080
-# or
-python3 -m http.server 8080 --directory MemoryGame
-```
-
-## Development notes
-
-- Source files are under `src/` and include `game.ts`, `ui.ts`, `storage.ts`, and an entry `index.ts`.
-- The top-level `index.html` in the `MemoryGame/` folder is the playable build/entry.
-
+     npx http-server . -p 8080
+     # or
+     python3 -m http.server 8080
 
 ## Project structure
 
-MemoryGame/
-- index.html        # main playable HTML
-- package.json      # (optional) scripts & dependencies
-- tsconfig.json     # TypeScript config
-- style.css         # base styles
-- src/              # TypeScript source files
-  - game.ts
-  - index.ts
-  - storage.ts
-  - ui.ts
+Files you care about:
+
+- `index.html`  — main playable HTML
+- `style.css`   — base styles
+- `src/`        — TypeScript source
+  - `game.ts`
+  - `ui.ts`
+  - `storage.ts`
+  - `index.ts`
+- `package.json`, `tsconfig.json` — optional tooling/config
+
+That's it — open `index.html` to play, or run the optional steps above to develop locally.
 
 
