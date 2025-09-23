@@ -2,28 +2,30 @@
 
 A small browser-based memory matching game implemented with TypeScript and a minimal UI.
 
-## Quick start
+Important: TypeScript cannot run directly in the browser. You must compile the TypeScript sources before the game will work. This project already includes a build step and a serve script.
 
-- Play immediately: open `index.html` in your browser (no build step required).
+Step-by-step (required)
 
-- Optional development workflow:
-  1. Install dependencies (if you plan to edit or build):
+1. Install dependencies (one-time):
 
-     npm install
+   ```bash
+   npm install
+   ```
 
-  2. Compile TypeScript (to emit files into the project):
+2. Build and run (single command):
 
-     npx tsc
+   ```bash
+   npm start
+   ```
 
-  3. Serve the folder with a static server (example):
+   The `npm start` script runs the TypeScript compiler and then launches `live-server` to serve the project. After the server starts, open the URL shown in the terminal (typically http://127.0.0.1:8080).
 
-     npx http-server . -p 8080
-     # or
-     python3 -m http.server 8080
+Notes
 
-## Project structure
+- Compiled files are emitted to `dist/` (see `tsconfig.json`). The repository's `.gitignore` excludes `dist/`, so built artifacts won't be committed.
+- The `start` script is the single supported workflow for local development: it performs the required build step and serves the site.
 
-Files you care about:
+Project structure
 
 - `index.html`  — main playable HTML
 - `style.css`   — base styles
@@ -32,8 +34,8 @@ Files you care about:
   - `ui.ts`
   - `storage.ts`
   - `index.ts`
-- `package.json`, `tsconfig.json` — optional tooling/config
+- `package.json`, `tsconfig.json` — tooling/config
 
-That's it — open `index.html` to play, or run the optional steps above to develop locally.
+That's all — run `npm install` once, then `npm start` to build and play.
 
 
