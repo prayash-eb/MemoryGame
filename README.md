@@ -18,7 +18,7 @@ Step-by-step (required)
    npm start
    ```
 
-   The `npm start` script runs the TypeScript compiler and then launches `live-server` to serve the project. After the server starts, open the URL shown in the terminal (typically http://127.0.0.1:8080).
+   The `npm start` script runs the TypeScript compiler and then launches `serve` to serve the project. After the server starts, open the URL shown in the terminal (typically http://127.0.0.1:3000).
 
 Notes
 
