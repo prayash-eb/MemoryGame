@@ -14,8 +14,8 @@ export function renderBoard(
 ) {
   if (!board) return;
   board.innerHTML = "";
-  // calculating one side based on boxStates.length
-  board.style.gridTemplateColumns = `repeat(${n},auto)`;
+  // using grid to render square based board based on 'n' value
+  board.style.gridTemplateColumns = `repeat(${n},auto)`
 
   boxStates.forEach((state, index) => {
     const box = document.createElement("div");
