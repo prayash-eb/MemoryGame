@@ -86,7 +86,6 @@ export class MemoryGame {
     this.boxStates[index].flipped = true;
     if (!this.firstBox) {
       this.firstBox = box;
-      // saveGame(this.boxStates, this.score, this.totalTries);
       return;
     }
     this.secondBox = box;
