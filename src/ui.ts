@@ -5,6 +5,11 @@ export function updateScore(score: number): void {
   scoreDiv.textContent = `Score:${score}`;
 }
 
+export function updateTries(totalTries: number): void {
+  const triesDiv = document.getElementById("tries")!;
+  triesDiv.textContent = `Total number of tries: ${totalTries}`
+}
+
 export function renderBoard(
   board: HTMLDivElement,
   boxStates: BoxState[],
