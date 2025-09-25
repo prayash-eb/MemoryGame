@@ -37,8 +37,6 @@ export class MemoryGame {
   private initBoxStates() {
     const pairStickers = this.shuffle([
       ...this.stickers,
-      ...this.stickers,
-      ...this.stickers,
       ...this.stickers
     ]).slice(0, this.m * this.n);
     this.boxStates = pairStickers.map((sticker, index) => ({
