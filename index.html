@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Memory Game</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <div id="score">Score: 0</div>
-    <div id="board" class="board"></div>
-    <button id="reset-btn" type="button">Reset Game</button>
-  </div>
-  <script type="module" src="./dist/index.js" defer></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="outer-container">
+      <div class="title">MEMORY GAME</div>
+      <div class="inner-container">
+        <div id="score">Score: 0</div>
+        <div id="board" class="board"></div>
+        <div id="tries">Total number of tries: 0</div>
+        <button id="reset-btn" type="button">Reset Game</button>
+      </div>
+    </div>
+    <script type="module" src="./dist/index.js" defer></script>
+  </body>
 </html>
