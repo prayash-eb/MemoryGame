@@ -1,4 +1,4 @@
-import { BoxState } from "./game.js";
+import { BoxState } from "./types/index.js";
 
 export function updateScore(score: number): void {
   const scoreDiv = document.getElementById("score")!;
@@ -13,14 +13,13 @@ export function updateTries(totalTries: number): void {
 export function renderBoard(
   board: HTMLDivElement,
   boxStates: BoxState[],
-  m: number,
-  n: number,
+  column: number,
   handleClick: (box: HTMLDivElement, index: number) => void
 ) {
   if (!board) return;
   board.innerHTML = "";
   // using grid to render square based board based on 'n' value
-  board.style.gridTemplateColumns = `repeat(${n},auto)`
+  board.style.gridTemplateColumns = `repeat(${column},auto)`
 
   boxStates.forEach((state, index) => {
     const box = document.createElement("div");
