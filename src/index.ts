@@ -2,7 +2,7 @@ import { MemoryGame } from "./game.js";
 import { BoardDimension, StickerType } from "./types/index.js";
 
 const DIMENSION: BoardDimension = {
-    ROW: 5,
+    ROW: 4,
     COLUMN: 4
 }
 
@@ -21,4 +21,5 @@ try {
     Game.init()
 } catch (error: any) {
     errorElement.textContent = `Error: ${error?.message}`
+    
 }

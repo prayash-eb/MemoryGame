@@ -51,6 +51,7 @@ export class MemoryGame {
       flipped: false,
       matched: false,
       sticker: sticker.value,
+      // included sticker id as well
       stickerId: sticker.id
     }));
     // reseting scores
@@ -70,10 +71,10 @@ export class MemoryGame {
   }
 
   private resetGame(): void {
-    localStorage.removeItem("MemoryGame");
     // clear box references and remove board lock as well.
     this.resetTurn()
     this.initBoxStates();
+    localStorage.removeItem("MemoryGame");
     renderBoard(this.board, this.boxStates, this.column, (box, index) =>
       this.handleClick(box, index)
     );
@@ -85,7 +86,7 @@ export class MemoryGame {
     this.boxStates[index].flipped = true;
     if (!this.firstBox) {
       this.firstBox = box;
-      saveGame(this.boxStates, this.score, this.totalTries);
+      // saveGame(this.boxStates, this.score, this.totalTries);
       return;
     }
     this.secondBox = box;
@@ -96,6 +97,7 @@ export class MemoryGame {
     ).indexOf(this.firstBox);
     const secondIndex = index;
 
+    // used stickerID for comparsion
     const firstSticker = this.boxStates[firstIndex].stickerId;
     const secondSticker = this.boxStates[secondIndex].stickerId;
 
