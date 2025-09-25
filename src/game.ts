@@ -1,5 +1,5 @@
 import { saveGame, loadGame } from "./storage.js";
-import { updateScore, renderBoard } from "./ui.js";
+import { updateScore, renderBoard, updateTries } from "./ui.js";
 
 export interface BoxState {
   matched: boolean;
@@ -14,6 +14,7 @@ export class MemoryGame {
   private firstBox: HTMLDivElement | null = null;
   private secondBox: HTMLDivElement | null = null;
   private score: number = 0;
+  private totalTries: number = 0;
 
   constructor(
     private boardID: string,
@@ -45,13 +46,17 @@ export class MemoryGame {
       sticker,
     }));
     this.score = 0;
+    this.totalTries = 0;
     updateScore(this.score);
+    updateTries(this.totalTries)
   }
 
   private resetTurn(): void {
     this.firstBox = null;
     this.secondBox = null;
     this.lockBoard = false;
+    this.totalTries++;
+    updateTries(this.totalTries)
   }
 
   private resetGame(): void {
@@ -68,7 +73,7 @@ export class MemoryGame {
     this.boxStates[index].flipped = true;
     if (!this.firstBox) {
       this.firstBox = box;
-      saveGame(this.boxStates, this.score);
+      saveGame(this.boxStates, this.score, this.totalTries);
       return;
     }
     this.secondBox = box;
@@ -88,7 +93,7 @@ export class MemoryGame {
       this.score++;
       updateScore(this.score);
       this.resetTurn();
-      saveGame(this.boxStates, this.score);
+      saveGame(this.boxStates, this.score, this.totalTries);
     } else {
       setTimeout(() => {
         this.firstBox?.classList.remove("flipped");
@@ -96,7 +101,7 @@ export class MemoryGame {
         this.boxStates[firstIndex].flipped = false;
         this.boxStates[secondIndex].flipped = false;
         this.resetTurn();
-        saveGame(this.boxStates, this.score);
+        saveGame(this.boxStates, this.score, this.totalTries);
       }, 800);
     }
   }
@@ -107,7 +112,9 @@ export class MemoryGame {
     if (savedGame) {
       this.boxStates = savedGame.boxStates;
       this.score = savedGame.score;
+      this.totalTries = savedGame.totalTries;
       updateScore(this.score)
+      updateTries(this.totalTries)
     } else {
       // if not initalize a new game
       this.initBoxStates();
