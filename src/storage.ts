@@ -1,4 +1,4 @@
-import { BoxState } from "./game.js";
+import { BoxState } from "./types/index.js";
 
 export function loadGame(): {
   boxStates: BoxState[];
