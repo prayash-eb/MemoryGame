@@ -107,6 +107,7 @@ export class MemoryGame {
     if (savedGame) {
       this.boxStates = savedGame.boxStates;
       this.score = savedGame.score;
+      updateScore(this.score)
     } else {
       // if not initalize a new game
       this.initBoxStates();
