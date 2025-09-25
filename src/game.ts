@@ -1,11 +1,6 @@
 import { saveGame, loadGame } from "./storage.js";
 import { updateScore, renderBoard, updateTries } from "./ui.js";
-
-export interface BoxState {
-  matched: boolean;
-  flipped: boolean;
-  sticker: string;
-}
+import { StickerType, BoxState } from "./types/index.js";
 
 export class MemoryGame {
   private lockBoard: boolean = false;
@@ -18,17 +13,29 @@ export class MemoryGame {
 
   constructor(
     private boardID: string,
-    private m: number,
-    private n: number,
-    private stickers: string[]
+    private row: number,
+    private column: number,
+    private stickers: StickerType[]
   ) {
-    const el = document.getElementById(boardID) as HTMLDivElement;
-    if (!el) {
+    const boardElement = document.getElementById(boardID) as HTMLDivElement;
+    if (!boardElement) {
       alert(`Board element with id ${boardID} not found`);
       return;
     }
-    this.board = el;
+    this.board = boardElement;
     this.stickers = stickers;
+    // validate dimension while initializing the game
+    this.validateDimension(row, column)
+  }
+
+  private validateDimension(row: number, column: number): void {
+    if (row * column % 2 !== 0) {
+      throw new Error("Invalid Row and Column Values. The total cell count must be even.")
+    }
+
+    if (this.stickers.length < (row * column) / 2) {
+      throw new Error("Not enough unique stickers.")
+    }
   }
 
   private shuffle<T>(array: T[]): T[] {
@@ -39,14 +46,17 @@ export class MemoryGame {
     const pairStickers = this.shuffle([
       ...this.stickers,
       ...this.stickers
-    ]).slice(0, this.m * this.n);
-    this.boxStates = pairStickers.map((sticker, index) => ({
+    ]).slice(0, this.row * this.column);
+    this.boxStates = pairStickers.map((sticker) => ({
       flipped: false,
       matched: false,
-      sticker,
+      sticker: sticker.value,
+      stickerId: sticker.id
     }));
+    // reseting scores
     this.score = 0;
     this.totalTries = 0;
+    // updating DOM
     updateScore(this.score);
     updateTries(this.totalTries)
   }
@@ -61,8 +71,10 @@ export class MemoryGame {
 
   private resetGame(): void {
     localStorage.removeItem("MemoryGame");
+    // clear box references and remove board lock as well.
+    this.resetTurn()
     this.initBoxStates();
-    renderBoard(this.board, this.boxStates, this.m, this.n, (box, index) =>
+    renderBoard(this.board, this.boxStates, this.column, (box, index) =>
       this.handleClick(box, index)
     );
   }
@@ -84,8 +96,8 @@ export class MemoryGame {
     ).indexOf(this.firstBox);
     const secondIndex = index;
 
-    const firstSticker = this.boxStates[firstIndex].sticker;
-    const secondSticker = this.boxStates[secondIndex].sticker;
+    const firstSticker = this.boxStates[firstIndex].stickerId;
+    const secondSticker = this.boxStates[secondIndex].stickerId;
 
     if (firstSticker === secondSticker) {
       this.boxStates[firstIndex].matched = true;
@@ -116,10 +128,10 @@ export class MemoryGame {
       updateScore(this.score)
       updateTries(this.totalTries)
     } else {
-      // if not initalize a new game
+      // if not, initalize a new game
       this.initBoxStates();
     }
-    renderBoard(this.board, this.boxStates, this.m, this.n, (box, index) =>
+    renderBoard(this.board, this.boxStates, this.column, (box, index) =>
       this.handleClick(box, index)
     );
 
