@@ -1,7 +1,6 @@
 import { MemoryGame } from "./game.js";
 import { StickerType } from "./types/index.js";
 
-
 const Stickers: string[] = ["🍎", "🍌", "🍇", "🍒", "🍉", "🍓", "🍍", "🥝"];
 
 const StickersInfo: StickerType[] = Stickers.map((sticker, index) => ({
@@ -17,5 +16,5 @@ try {
     Game.init()
 } catch (error: any) {
     errorElement.textContent = `Error: ${error?.message}`
-    
+
 }
