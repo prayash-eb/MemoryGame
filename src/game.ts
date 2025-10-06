@@ -13,8 +13,6 @@ export class MemoryGame {
 
   constructor(
     private boardID: string,
-    private row: number,
-    private column: number,
     private stickers: StickerType[]
   ) {
     const boardElement = document.getElementById(boardID) as HTMLDivElement;
@@ -24,18 +22,6 @@ export class MemoryGame {
     }
     this.board = boardElement;
     this.stickers = stickers;
-    // validate dimension while initializing the game
-    this.validateDimension(row, column)
-  }
-
-  private validateDimension(row: number, column: number): void {
-    if (row * column % 2 !== 0) {
-      throw new Error("Invalid Row and Column Values. The total cell count must be even.")
-    }
-
-    if (this.stickers.length < (row * column) / 2) {
-      throw new Error("Not enough unique stickers.")
-    }
   }
 
   private shuffle<T>(array: T[]): T[] {
@@ -45,8 +31,8 @@ export class MemoryGame {
   private initBoxStates() {
     const pairStickers = this.shuffle([
       ...this.stickers,
-      ...this.stickers
-    ]).slice(0, this.row * this.column);
+      ...this.stickers,
+    ]);
     this.boxStates = pairStickers.map((sticker) => ({
       flipped: false,
       matched: false,
@@ -75,7 +61,7 @@ export class MemoryGame {
     this.resetTurn()
     this.initBoxStates();
     localStorage.removeItem("MemoryGame");
-    renderBoard(this.board, this.boxStates, this.column, (box, index) =>
+    renderBoard(this.board, this.boxStates, (box, index) =>
       this.handleClick(box, index)
     );
   }
@@ -132,7 +118,7 @@ export class MemoryGame {
       // if not, initalize a new game
       this.initBoxStates();
     }
-    renderBoard(this.board, this.boxStates, this.column, (box, index) =>
+    renderBoard(this.board, this.boxStates, (box, index) =>
       this.handleClick(box, index)
     );
 

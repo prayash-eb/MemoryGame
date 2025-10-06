@@ -13,17 +13,17 @@ export function updateTries(totalTries: number): void {
 export function renderBoard(
   board: HTMLDivElement,
   boxStates: BoxState[],
-  column: number,
   handleClick: (box: HTMLDivElement, index: number) => void
 ) {
   if (!board) return;
   board.innerHTML = "";
-  // using grid to render square based board based on 'n' value
-  board.style.gridTemplateColumns = `repeat(${column},auto)`
+  // using grid to render square based board based on boxState length
+  board.style.gridTemplateColumns = `repeat(${Math.sqrt(boxStates.length)},auto)`
 
   boxStates.forEach((state, index) => {
     const box = document.createElement("div");
     box.className = "box";
+
     box.innerHTML = `
         <div class="box-inner">
             <div class="box-front"></div>

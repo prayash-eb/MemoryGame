@@ -1,7 +1,3 @@
-export type BoardDimension = {
-    ROW: number,
-    COLUMN: number
-}
 
 export type StickerType = {
     id: number,

@@ -1,10 +1,6 @@
 import { MemoryGame } from "./game.js";
-import { BoardDimension, StickerType } from "./types/index.js";
+import { StickerType } from "./types/index.js";
 
-const DIMENSION: BoardDimension = {
-    ROW: 4,
-    COLUMN: 4
-}
 
 const Stickers: string[] = ["🍎", "🍌", "🍇", "🍒", "🍉", "🍓", "🍍", "🥝"];
 
@@ -14,10 +10,10 @@ const StickersInfo: StickerType[] = Stickers.map((sticker, index) => ({
 }))
 
 // added Error element in html to show error during game initialization
-const errorElement: HTMLElement = document.getElementById("error-message")!
+const errorElement = document.getElementById("error-message")!
 
 try {
-    const Game = new MemoryGame("board", DIMENSION.ROW, DIMENSION.COLUMN, StickersInfo);
+    const Game = new MemoryGame("board", StickersInfo);
     Game.init()
 } catch (error: any) {
     errorElement.textContent = `Error: ${error?.message}`
