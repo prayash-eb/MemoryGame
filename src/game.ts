@@ -5,22 +5,16 @@ import { StickerType, BoxState } from "./types/index.js";
 export class MemoryGame {
   private lockBoard: boolean = false;
   private boxStates: BoxState[] = [];
-  private board!: HTMLDivElement;
   private firstBox: HTMLDivElement | null = null;
   private secondBox: HTMLDivElement | null = null;
   private score: number = 0;
   private totalTries: number = 0;
 
   constructor(
-    private boardID: string,
+    private board: HTMLDivElement,
     private stickers: StickerType[]
   ) {
-    const boardElement = document.getElementById(boardID) as HTMLDivElement;
-    if (!boardElement) {
-      alert(`Board element with id ${boardID} not found`);
-      return;
-    }
-    this.board = boardElement;
+    this.board = board
     this.stickers = stickers;
   }
 
